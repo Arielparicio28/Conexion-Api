@@ -1,29 +1,27 @@
 // Variables para realizar un seguimiento del índice actual
 let startIndex = 0;
-const itemsPerPage = 10; // Cantidad de elementos a mostrar por página
+const itemsPerPage = 5; // Cantidad de elementos a mostrar por página
 
-// Obtener una referencia al contenedor de la tabla
+// Obtengo una referencia al contenedor de la tabla
 const container = document.getElementById('container');
 
 // Función para renderizar la tabla con los datos en un rango específico
 function renderTable(start, end) {
-  // Crear una tabla HTML
+  // Creo una tabla HTML
   const table = document.createElement('table');
   table.style.borderCollapse = 'collapse';
 
-  // Crear una fila de encabezado
+  // Creo una fila de encabezado
   const headerRow = document.createElement('tr');
   const headers = ['Bandera', 'Nombre', 'Capital', 'Población'];
   headers.forEach(headerText => {
     const header = document.createElement('th');
     header.textContent = headerText;
-    header.style.border = '1px solid black';
-    header.style.padding = '8px';
     headerRow.appendChild(header);
   });
   table.appendChild(headerRow);
 
-  // Crear una fila por cada país y agregar los datos
+  // Creo una fila por cada país y agregar los datos
   for (let i = start; i < end; i++) {
     const country = data[i];
 
@@ -35,8 +33,7 @@ function renderTable(start, end) {
     flagImg.style.width = '50px';
     flagImg.style.height = 'auto';
     flagCell.appendChild(flagImg);
-    flagCell.style.border = '1px solid black';
-    flagCell.style.padding = '8px';
+   
     row.appendChild(flagCell);
 
     const nameCell = document.createElement('td');
@@ -60,12 +57,12 @@ function renderTable(start, end) {
     table.appendChild(row);
   }
 
-  // Eliminar la tabla existente dentro del contenedor
+  // Elimino la tabla existente dentro del contenedor
   while (container.firstChild) {
     container.firstChild.remove();
   }
 
-  // Agregar la tabla actualizada al contenedor
+  // Agrego la tabla actualizada al contenedor
   container.appendChild(table);
 }
 
@@ -78,7 +75,7 @@ function handlePreviousClick() {
   }
 }
 
-// Función para manejar el evento clic del botón "Adelante"
+// Función para manejar el evento clic del botón "Next"
 function handleNextClick() {
   if (startIndex + itemsPerPage < data.length) {
     startIndex += itemsPerPage;
@@ -97,10 +94,10 @@ fetch('https://restcountries.com/v3.1/all')
     }
   })
   .then(responseData => {
-    // Guardar los datos en una variable global
+    // Guardo los datos en una variable global
     data = responseData;
 
-    // Mostrar la primera página de datos
+    // Muestro la primera página de datos
     const endIndex = startIndex + itemsPerPage;
     renderTable(startIndex, endIndex);
   })
@@ -108,18 +105,18 @@ fetch('https://restcountries.com/v3.1/all')
     console.error('Error:', error);
   });
 
-// Obtener una referencia a los botones "Atrás" y "Adelante"
+// Obtengo una referencia a los botones "back" y "next"
 const backButton = document.getElementById('backButton');
 const nextButton = document.getElementById('nextButton');
 
-// Agregar manejadores de eventos a los botones
+// Agrego manejadores de eventos a los botones
 backButton.addEventListener('click', handlePreviousClick);
 nextButton.addEventListener('click', handleNextClick);
 
 
 
 
-  
+  //No funciona esta conexion a esta Api
 const countryCode = '';
 const apiKey = 'HPXWM8SYCHHTLIWE9A7Y1ACSZP29N3XE';
 const url = `https://api.geodatasource.com/neighbouring-countries?key=${apiKey}&country_code=${countryCode}`;
